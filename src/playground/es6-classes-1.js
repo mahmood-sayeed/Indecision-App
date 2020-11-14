@@ -23,7 +23,7 @@ class Student extends Person {
         return !!this.major;    //two not operators turns true to true and undefined to false.
     }  
 
-    getDescription(){       //overriding parent function
+    getDescription(){       //overloading parent function
         let description = super.getDescription();
         
         if(this.hasMajor()) {
