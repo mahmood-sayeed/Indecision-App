@@ -2,6 +2,7 @@
 //babel src\app.js --out-file=public\scripts\app.js --presets=env,react --watch
 //two different terminals on path react\indecision-app
 
+
 class IndecisionApp extends React.Component {
 	render() {
 		const title = 'Indecision';
@@ -30,19 +31,32 @@ class Header extends React.Component {
 }
 
 class Action extends React.Component {
+	handlePick() {
+		alert('yes pick');
+	}
+
 	render() {
 		return (
 			<div>
-				<button>What should i do?</button>
+				<button onClick={this.handlePick}>What should i do?</button>
 			</div>
 		);
 	}
 }
 
 class Options extends React.Component {
+	constructor(props) {
+		super(props);
+		this.handleRemoveAll = this.handleRemoveAll.bind(this);
+	}
+	handleRemoveAll() {
+		alert('yes remove');
+	}
+
 	render() {
 		return (
 			<div>
+				<button onClick={this.handleRemoveAll}>Remove All</button>
 				{
 					this.props.options.map((option) => <Option key={option} optionText={option} />)
 				}
@@ -62,10 +76,21 @@ class Option extends React.Component {
 }
 
 class AddOption extends React.Component {
+	handleAddOption(e) {
+		e.preventDefault();
+
+		const option = e.target.elements.option.value.trim();
+		if(option){
+			alert(option);
+		}
+	}
 	render() {
 		return (
 			<div>
-				AddOption Component here
+				<form onSubmit={this.handleAddOption}>
+					<input type="text" name="option"/>
+					<button>Add Option</button>
+				</form>
 			</div>
 		);
 	}
