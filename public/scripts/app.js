@@ -12,7 +12,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 //babel src\app.js --out-file=public\scripts\app.js --presets=env,react --watch
 //two different terminals on path react\indecision-app
 
-
 var IndecisionApp = function (_React$Component) {
 	_inherits(IndecisionApp, _React$Component);
 
@@ -30,8 +29,42 @@ var IndecisionApp = function (_React$Component) {
 		};
 		return _this;
 	}
+	//some Lifecycle Methods of class components
+
 
 	_createClass(IndecisionApp, [{
+		key: 'componentDidMount',
+		value: function componentDidMount() {
+			//fires when component is mounted, fetching data
+			try {
+				var json = localStorage.getItem('options');
+				var options = JSON.parse(json);
+
+				if (options) {
+					this.setState(function () {
+						return { options: options };
+					});
+				}
+			} catch (e) {
+				//Do nothing
+			}
+		}
+	}, {
+		key: 'componentDidUpdate',
+		value: function componentDidUpdate(prevProps, prevState) {
+			//when component updates, saving data
+			if (prevState.options.length !== this.state.options.length) {
+				var json = JSON.stringify(this.state.options);
+				localStorage.setItem('options', json);
+				console.log('options saved in local storage');
+			}
+		}
+	}, {
+		key: 'componentWillUnmount',
+		value: function componentWillUnmount() {
+			console.log('when component un-mounted aka disappears');
+		}
+	}, {
 		key: 'handleDeleteOptions',
 		value: function handleDeleteOptions() {
 			this.setState(function () {
@@ -80,24 +113,18 @@ var IndecisionApp = function (_React$Component) {
 	}, {
 		key: 'render',
 		value: function render() {
-
 			var subtitle = 'Put your life in the hands of a computer';
 			return React.createElement(
 				'div',
 				null,
 				React.createElement(Header, { subtitle: subtitle }),
-				React.createElement(Action, {
-					hasOptions: this.state.options.length > 0,
-					handlePick: this.handlePick
-				}),
+				React.createElement(Action, { hasOptions: this.state.options.length > 0, handlePick: this.handlePick }),
 				React.createElement(Options, {
 					options: this.state.options,
 					handleDeleteOptions: this.handleDeleteOptions,
 					handleDeleteOption: this.handleDeleteOption
 				}),
-				React.createElement(AddOption, {
-					handleAddOption: this.handleAddOption
-				})
+				React.createElement(AddOption, { handleAddOption: this.handleAddOption })
 			);
 		}
 	}]);
@@ -138,9 +165,7 @@ var Action = function Action(props) {
 		null,
 		React.createElement(
 			'button',
-			{ onClick: props.handlePick,
-				disabled: !props.hasOptions
-			},
+			{ onClick: props.handlePick, disabled: !props.hasOptions },
 			'What should i do?'
 		)
 	);
@@ -154,6 +179,11 @@ var Options = function Options(props) {
 			'button',
 			{ onClick: props.handleDeleteOptions },
 			'Remove All'
+		),
+		props.options.length === 0 && React.createElement(
+			'p',
+			null,
+			'Please add an option to get started!'
 		),
 		props.options.map(function (option) {
 			return React.createElement(Option, {
@@ -209,6 +239,10 @@ var AddOption = function (_React$Component2) {
 			this.setState(function () {
 				return { error: error };
 			}); //similar to error:error
+
+			if (!error) {
+				e.target.elements.option.value = '';
+			}
 		}
 	}, {
 		key: 'render',
@@ -248,6 +282,5 @@ var AddOption = function (_React$Component2) {
 // 		</div>
 // 	);
 // };
-
 
 ReactDOM.render(React.createElement(IndecisionApp, null), document.getElementById('app'));
