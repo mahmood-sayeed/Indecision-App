@@ -5,5 +5,15 @@ module.exports = {
     output: {
         path: path.join(__dirname, 'public'),       //__dirname - path to current location
         filename: 'bundle.js'
+    },
+    module: {
+        rules: [{
+            loader: 'babel-loader',
+            test: /\.js$/,
+            exclude: /node_modules/
+        }]
     }
 };
+
+//babel-loader extension which teaches webpack how to run babel
+//babel-core used to work with webpack
