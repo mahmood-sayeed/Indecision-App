@@ -12,7 +12,8 @@ module.exports = {
             test: /\.js$/,
             exclude: /node_modules/
         }]
-    }
+    },
+    devtool: 'cheap-module-eval-source-map'
 };
 
 //babel-loader extension which teaches webpack how to run babel
