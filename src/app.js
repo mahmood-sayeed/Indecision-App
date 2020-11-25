@@ -1,12 +1,11 @@
-// import './utils.js';
-// import subtract, { square, add } from './utils.js';
-// //default import can be named anything. subtract can be called "anything"
-// console.log('running');
-// console.log(square(4));
-// console.log(add(100, 23));
-// console.log(subtract(100, 81));
+//react react-dom validator importing em
+// import validator from 'validator';
 
-import isSenior, { isAdult, canDrink } from './person.js';
-console.log('can drink ', canDrink(19));
-console.log('Adult?  ', isAdult(20));
-console.log(isSenior(64));
+// console.log(validator.isEmail('test@gmail.com'));
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+const template = React.createElement('p', {}, 'testing');
+ReactDOM.render(template, document.getElementById('app'));
+
