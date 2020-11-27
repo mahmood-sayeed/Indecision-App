@@ -8,8 +8,9 @@ html {
 //made rem base 10. which is - 2.2 rem = 22 px
 
 body {
+    background: $dark-blue;
     font-family: Helvetica, Arial, sans-serif;
-    font-size: 1.6rem;
+    font-size: $m-size;
 }
 
 h1 {
