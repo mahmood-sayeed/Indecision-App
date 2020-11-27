@@ -1,0 +1,17 @@
+//1 rem = 16px
+//filename starts with _ meaning partial
+
+html {
+    font-size: 62.5%;
+}
+
+//made rem base 10. which is - 2.2 rem = 22 px
+
+body {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 1.6rem;
+}
+
+h1 {
+    font-size: 1rem;
+}
